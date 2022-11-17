@@ -7,7 +7,7 @@ pipeline {
     stages {
          stage('Cloning from GitHub') {
                 steps {
-                    git branch: 'main', url: 'https://github.com/KlaiGhassen/devops'
+                      git branch: 'main', url: 'https://github.com/mohamedhabibmsahel/SpringAOP'
                 }  
             }
           stage('MVN COMPILE') {
@@ -27,10 +27,10 @@ pipeline {
        }
          stage ('Scan Sonar'){
             steps {
-    sh "mvn sonar:sonar \
-          -Dsonar.projectKey=achat \
-          -Dsonar.host.url=http://192.168.33.10:9000 \
-          -Dsonar.login=68359cf3e9b325d9706fedbb1b2747978c9163d6"
+      sh "mvn sonar:sonar \
+  -Dsonar.projectKey=sonar \
+  -Dsonar.host.url=http://192.168.33.10:9000 \
+  -Dsonar.login=b363068e908831f3c25a2c783bdadb206cb77bfb"
     }
         }
         stage('Nexus') {
@@ -41,20 +41,20 @@ pipeline {
        
      stage("Building Docker Image") {
                 steps{
-                    sh 'docker build -t gaston2100/achat .'
+                    sh 'docker build -t mohamedhabibmsahel123/achat .'
                 }
         }
-        
-        
-           stage("Login to DockerHub") {
+     
+         stage("Login to DockerHub") {
                 steps{
                    // sh 'sudo chmod 666 /var/run/docker.sock'
-                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u gaston2100 -p hinda2100@@'
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u mohamedhabibmsahel123 -p juka98473912azerty'
                 }
         }
+        
         stage("Push to DockerHub") {
                 steps{
-                    sh 'docker push gaston2100/achat'
+                    sh 'docker push mohamedhabibmsahel123/achat'
                 }
         }
     
@@ -64,16 +64,5 @@ pipeline {
                 }
         }
     }
-    
-    post {
-                success {
-                   echo 'succes'
-                }
-failure {
-                  echo 'failed'   
-                }
-             
-       
+      
     }
-
-}
